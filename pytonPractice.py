@@ -18,6 +18,7 @@ def storeValue(value):
     fo.close()
 
 # Fetches the current GMT time from the internet
+# Format: yyyy-mm-dd HH:mm:ss
 def getCurrentGMTTime():
     try:
         res = requests.get('http://just-the-time.appspot.com/')
@@ -28,6 +29,7 @@ def getCurrentGMTTime():
     print('Done.')
 
 # Converts the fetched GMT time to PST
+# Format: yyyy-mm-dd HH:mm:ss
 def getCurrentPSTTime():
     gmtTime = getCurrentGMTTime()
     splitDateTime = str(gmtTime).split(' ')
