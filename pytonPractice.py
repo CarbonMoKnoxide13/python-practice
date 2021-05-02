@@ -2,20 +2,22 @@ import time
 import os
 import requests
 
-def readTime():
+# Reads the value stored in dataStorage.txt, if such a value exists
+def readValue():
     fr = open("dataStorage.txt", "r")
     time = fr.read()
     fr.close()
     print(time)
     return time
 
-
-def storeTime(time):
+# Writes a given value to dataStorage.txt - if dataStorage.txt doesn't yet exist, the file is created then written to.
+def storeValue(value):
     fo = open("dataStorage.txt", "w")
     fo.flush()
-    fo.write(str(time))
+    fo.write(str(value))
     fo.close()
 
+# Fetches the current GMT time from the internet
 def getCurrentGMTTime():
     try:
         res = requests.get('http://just-the-time.appspot.com/')
@@ -25,6 +27,7 @@ def getCurrentGMTTime():
 
     print('Done.')
 
+# Converts the fetched GMT time to PST
 def getCurrentPSTTime():
     gmtTime = getCurrentGMTTime()
     splitDateTime = str(gmtTime).split(' ')
@@ -35,6 +38,7 @@ def getCurrentPSTTime():
     pst = pst[2:]
     return pst
 
+# Get the current PST time and write it to dataStorage.txt
 pst = getCurrentPSTTime()
-storeTime(pst)
-readTime()
+storeValue(pst)
+readValue()
